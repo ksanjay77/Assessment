@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	   http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+	   http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	   http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+	<context:annotation-config />
+	<context:component-scan annotation-config="true"
+		base-package="com.learn.assessment.dao,com.learn.assessment.service,com.learn.assessment.dao.impl,com.learn.assessment.repositories" />
+
+	<!-- import the module specific things in different *-context files to make 
+		it modular. -->
+
+	<jpa:repositories base-package="com.learn.assessment.repositories"></jpa:repositories>
+	
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+
+	<!-- BeanPostProcessor that processes PersistenceUnit and PersistenceContext 
+		annotations, for injection of the corresponding JPA resources EntityManagerFactory 
+		and EntityManager. Any such annotated fields or methods in any Spring-managed 
+		object will automatically be injected. -->
+	<!-- Put the beanPostProcessor -->
+ 	<!-- <bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" /> 
+ -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+	</bean>
+	
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:database.properties</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Define the JPA transaction manager -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<constructor-arg ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="vendorAdaptor" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<!-- <property name="showSql" value="true" /> -->
+		<property name="database" value="${jpa.database}"/>
+	</bean>
+	
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter" ref="vendorAdaptor" />
+		<property name="persistenceUnitName" value="jpa.sample" />
+		<property name="packagesToScan" value="com.learn.assessment.domain"/>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- Transactions are annotation driven -->
+	<tx:annotation-driven />
+ 	
+</beans>

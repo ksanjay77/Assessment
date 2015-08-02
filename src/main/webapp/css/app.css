@@ -1,0 +1,60 @@
+/* app css stylesheet */
+body {
+	padding-top: 10px;
+}
+
+.phones {
+	list-style: none;
+}
+
+.phones li {
+	clear: both;
+	height: 35px;
+	border-bottom: 0.2em;
+	border-bottom-color: black;
+	border-bottom-style: solid;
+}
+
+.logo {
+	display: inline-block;
+	font-family: 'Gotham Rounded A', 'Gotham Rounded B', sans-serif;
+	font-weight: 350;
+	font-style: normal;
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	line-height: 1;
+	background-color: orange;
+	width: 300px;
+}
+
+.top {
+	padding: 0 0 10px 10px;
+}
+
+.productDesc {
+	font-style: normal;
+	padding-bottom: 2px;
+	padding-top: 0px;
+}
+
+.owner {
+	font-weight: 20;
+	font-style: normal;
+	font-size: 0.8rem;
+	text-transform: lowercase;
+	padding-top: 0px;
+	padding-bottom: 2px;
+	padding-left: 10px;
+}
+
+.location {
+	font-weight: 40;
+	font-style: italic;
+	font-size: 0.8rem;
+	padding-left: 10px;
+}
+
+.search {
+	width: 80px;
+	height: 20px;
+}
