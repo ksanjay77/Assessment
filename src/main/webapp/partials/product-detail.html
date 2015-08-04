@@ -1,7 +1,7 @@
 <div>
 	<h1>{{name}}</h1>
 </div>
-<form ng-controller="ProductDetailCtrl" ng-submit="evaluate(result,answers)">
+<form ng-controller="ProductDetailCtrl" ng-submit="evaluate(result)">
 	<div class="form-group">
 		<div class="phone">
 			<ol>
@@ -16,7 +16,8 @@
 								{{choice.description}}
 							</div>
 						</li>
-					</ul>
+					</ol>
+					<div ng-hide="showAnswers">{{result.answers[question.seq].correct}} </div>
 				</li>
 			</ol>
 		</div>
@@ -24,14 +25,6 @@
 		<div ng-init="showAnswers=true">
 			<button ng-click="showAnswers=checkQuizCompleted()">Show Results</button>
 			<br /> <br />
-		
-			<div ng-hide="showAnswers">
-				<strong>Results</strong>
-		
-				<div ng-repeat="answer in answers">id: {{answer.id}} -
-					-sequence: {{answer.seq}} {{answer.correct}}</div>
-			</div>
 		</div>
-		<!-- <p><input type="submit" value="evaluate(result)"></p>-->
 	</div>
 </form>

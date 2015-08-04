@@ -68,7 +68,7 @@
 	</bean>
 
 	<bean id="vendorAdaptor" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-		<!-- <property name="showSql" value="true" /> -->
+		<property name="showSql" value="true" />
 		<property name="database" value="${jpa.database}"/>
 	</bean>
 	

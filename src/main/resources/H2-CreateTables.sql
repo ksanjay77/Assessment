@@ -45,21 +45,18 @@ ALTER TABLE AssessmentQuestion ADD CONSTRAINT AqFk1 FOREIGN KEY (QuestionId) REF
 ALTER TABLE AssessmentQuestion ADD CONSTRAINT AqFk2 FOREIGN KEY (AssessmentId) REFERENCES ASSESSMENT (Id);
 
 CREATE table Result( 
-	Id int not null,
+	Id int auto_increment primary key,
 	accessmentCode varchar(20),
 	assessmentId int not null,
 	assessmentName varchar(128),
 	userid         VARCHAR(32) 
 );
-ALTER TABLE Result ADD CONSTRAINT result_pk PRIMARY KEY (Id);
-ALTER TABLE Result ADD CONSTRAINT result_fk foreign key (assessmentId) references Assessment(Id);
 
 CREATE table Answer(
- Id int not null,
- resultId int not null,
+ Id int auto_increment primary key,
+ questionId int not null,
+ result_id int not null,
  subtopic varchar(50),
  correct  varchar(1)
 );
-ALTER TABLE Answer ADD CONSTRAINT answer_pk PRIMARY KEY (Id, resultId);
-ALTER TABLE Answer ADD CONSTRAINT answer_fk foreign key (resultId) references Result(Id);
 

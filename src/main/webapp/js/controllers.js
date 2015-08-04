@@ -14,7 +14,7 @@ productControllers.controller('ProductDetailCtrl', function($scope, $routeParams
     
 	$http.get('learno/assessment/'+id).success(function(data) {
 	      $scope.questions = data.questions;
-	      $scope.result ={assessmentId: id, name: data.name, topic: data.topic};
+	      $scope.result ={assessmentId: id, name: data.name, topic: data.topic, answers: []};
 	      createResults();
 	    
 	});
@@ -24,8 +24,8 @@ productControllers.controller('ProductDetailCtrl', function($scope, $routeParams
     createResults = function () {
       var len = $scope.questions.length;
       for (var i = 0; i < len; i++) {
-        $scope.answers.push({
-          id:        	$scope.questions[i].id,
+        $scope.result.answers.push({
+          questionId:   $scope.questions[i].id,
           seq:			$scope.questions[i].seq,
           answer:     	$scope.questions[i].answer,
           subtopic:		$scope.questions[i].subtopic,
@@ -38,20 +38,20 @@ productControllers.controller('ProductDetailCtrl', function($scope, $routeParams
     // assign and check user's choice
     $scope.checkUserChoice = function (question, userChoice, seq) {
       // assign the user's choice to userChoice
-      $scope.answers[seq].userChoice = userChoice;
+      $scope.result.answers[seq].userChoice = userChoice;
       // check the user's choice against the answer
-      if ($scope.answers[seq].answer === userChoice) {
-        $scope.answers[seq].correct = 'C';
+      if ($scope.result.answers[seq].answer === userChoice) {
+        $scope.result.answers[seq].correct = 'C';
       } else {
-        $scope.answers[seq].correct = 'I';
+        $scope.result.answers[seq].correct = 'I';
       }
     };
  
     // only show results if all questions are answered
     $scope.checkQuizCompleted = function () {
-      var len = $scope.answers.length;
+      var len = $scope.result.answers.length;
       for (var i = 0; i < len; i++) {
-        if ($scope.answers[i].userChoice === null) {
+        if ($scope.result.answers[i].userChoice === null) {
           return true;
         }
       }
@@ -59,11 +59,8 @@ productControllers.controller('ProductDetailCtrl', function($scope, $routeParams
     };
 	
     //save the data
-	$scope.evaluate = function(result,answers){
-		alert(result.topic);
-		alert(answers[0].userChoice)
-		var temp = angular.extend({},result, answers);
-		$http.post('learno/evaluate', temp).success(function(data){
+	$scope.evaluate = function(result){
+		$http.post('learno/evaluate', result).success(function(data){
 			
 		});
 	};

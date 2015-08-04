@@ -3,8 +3,11 @@ package com.learn.assessment.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -20,6 +23,7 @@ public class Result extends BasicEntity{
 	private static final long serialVersionUID = -3180729522860106204L;
 
 	@Id
+	@GeneratedValue
 	private Long id;
 	
 	@Column(name="accessmentCode")
@@ -31,8 +35,8 @@ public class Result extends BasicEntity{
 	@Column(name="assessmentName")
 	private String assessmentName;
 	
-	@OneToMany 
-	@JoinColumn(name="resultId")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="result_id")
 	private Set<Answer> answers = new HashSet<Answer>(0);
 	
 	@Column(name="userId")

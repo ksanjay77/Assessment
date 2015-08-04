@@ -74,15 +74,6 @@ public class LoadQuestionController {
 		//return list;
 	}
 	
-	@RequestMapping(value="/evaluate",method=RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
-	public void evaluate(@RequestBody Result result, HttpServletRequest request, 
-			  HttpServletResponse response) {
-		System.out.println("Entering....evaluate.................");
-		System.out.println(result.getAssessmentId());
-		System.out.println(result.getAnswers());
-	}
-
 	@RequestMapping(value="/assessment",method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createAssessment(@RequestBody Assessment assessment, 
