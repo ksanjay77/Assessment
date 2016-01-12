@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Answer")
 public class Answer extends BasicEntity{
-
+	// comment by Sanjay
 	private static final long serialVersionUID = 4786388405157535748L;
 	
 	@Id
