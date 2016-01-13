@@ -13,6 +13,7 @@ public class Answer extends BasicEntity{
 	// comment by Sanjay
 	private static final long serialVersionUID = 4786388405157535748L;
 	// rebase 1
+	//rebase 2
 	@Id
 	@GeneratedValue
 	private Long id;
